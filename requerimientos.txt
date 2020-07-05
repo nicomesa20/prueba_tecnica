@@ -1,0 +1,31 @@
+Prueba para candidatos Backend
+
+La siguiente prueba será para ver cómo te desenvuelves haciendo un desarrollo en Python
+Rest Framework y tu capacidad de investigación para resolver tu objetivo. Ten en cuenta que
+tendremos en cuenta el cómo te desenvuelves en el código y qué tan limpio y eficiente lo
+puedes crear.
+Objetivos:
+1. Crear un recurso POST para crear un usuario. Debes solicitar solo información básica
+(Nombres, Apellidos, Correo electrónico, Fecha de nacimiento y contraseña)
+2. Crear un recurso POST para realizar autenticación. Esta autenticación debe solicitar
+correo y contraseña. Y como respuesta, debe devolver un token que será usado en el
+siguiente punto.
+3. Crear un recurso GET que devuelva la información del usuario.
+
+Estructura que deben tener los Endpoints
+1. POST http://localhost:8000/user
+● Devolver respuesta 400 cuando la petición se hace mal. Es decir, cuando falta
+información en la petición o está ingresada incorrectamente.
+● Devolver 201 cuando el usuario es creado en el sistema.
+2. POST http://localhost:8000/auth
+● Devolver respuesta 400 cuando la petición se hace mal. Es decir, cuando falta
+información en la petición o está ingresada incorrectamente.
+● Devolver 404 cuando el usuario no existe en base de datos
+● Devolver 409 cuando las credenciales son incorrectas
+● Devolver 201 cuando el usuario es autenticado correctamente y el token de
+autenticación.
+
+3. GET http://localhost:8000/user/correo@correo.com
+● Devolver respuesta 400 cuando el correo no tiene un formato válido.
+● Devolver 404 cuando el usuario no existe en base de datos.
+● Devolver 200 cuando el usuario es encontrado y toda su información.
