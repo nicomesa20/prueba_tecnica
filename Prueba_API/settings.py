@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'API.User'
+#AUTH_USER_MODEL = 'API.User'
 
 
 

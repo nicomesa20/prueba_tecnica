@@ -17,7 +17,6 @@ class UserAPI(APIView):
 
         def to_date(date): return datetime.strptime(date, '%Y-%m-%d')
         validator = Validator({
-            'user_name': {'required': True, 'type': 'string'},
             'email': {'required': True, 'type': 'string'},
             'first_name': {'required': True, 'type': 'string'},
             'last_name': {'required': True, 'type': 'string'},
@@ -30,8 +29,8 @@ class UserAPI(APIView):
                 'data': validator.errors
             }, status.HTTP_400_BAD_REQUEST)
 
-        serializer = UserSerializer(request.data)
-
+        serializer = UserSerializer(data=request.data)
+        
 
         if not serializer.is_valid():
             return Response({
@@ -40,16 +39,15 @@ class UserAPI(APIView):
             }, status.HTTP_400_BAD_REQUEST)
 
         user = User.objects.filter(
-            Q(email=request.data['email']) |
-            Q(username=request.data['user_name'])
+            Q(email=request.data['email'])
         ).first()
 
         if user:
             return Response({
                 'code': 'Este usuario ya esta registrado',
-            }, status.HTTP_400_BAD_REQUEST)
+            }, status.HTTP_409_CONFLICT)
 
-        user = serializer.create(request.data)
+        user = serializer.create(validated_data=request.data)
 
         return Response(status.HTTP_201_CREATED)
         
